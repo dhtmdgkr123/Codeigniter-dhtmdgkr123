@@ -1,11 +1,19 @@
 {
-	"name": "Codeigniter-Custom",
+	"name": "dhtmdgkr123/Codeigniter-custom",
 	"description" : "The CodeIgniter Application with Composer",
 	"require": {
 		"php": ">=5.3.2",
 		"codeigniter/framework": "3.1.*",
 		"vlucas/phpdotenv": "^4.1"
 	},
+	"authors": [
+		{
+			"email": "osh12201@gmail.com",
+			"homepage": "https://dhtmdgkr123.github.io",
+			"name": "dhtmdgkr123",
+			"role": "Developer"
+		}
+	],
 	"require-dev": {
 		"mikey179/vfsStream": "1.1.*"
 	}
