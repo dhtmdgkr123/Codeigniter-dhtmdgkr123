@@ -20,12 +20,12 @@
 	},
 	"autoload": {
         "psr-4": {
-            "dhtmdgkr123\\CodeIgniter\\": "src/"
+            "dhtmdgkr123\\Codeigniter\\": "src/"
         }
     },
     "scripts" : {
         "post-create-project-cmd": [
-            "dhtmdgkr123\\CodeIgniter\\AfterInstall::postInstall"
+            "dhtmdgkr123\\Codeigniter\\AfterInstall::postInstall"
         ]
     }
 }
