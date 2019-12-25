@@ -48,8 +48,8 @@
  * 
  * NOTE: If you don't want to load dot env remove below if block code
  */
+require_once realpath('../vendor/autoload.php');
 if ( file_exists(realpath('../.env')) ) {
-	require_once realpath('../vendor/autoload.php');
 	(Dotenv\Dotenv::createImmutable(realpath('../')))->load();
 }
 
