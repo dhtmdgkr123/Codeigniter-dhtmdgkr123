@@ -1,4 +1,6 @@
 <?php
+namespace dhtmdgkr123\Codeigniter;
+use Composer\Script\Event;
 if(! class_exists('AfterInstall')) {
     class AfterInstall
     {
