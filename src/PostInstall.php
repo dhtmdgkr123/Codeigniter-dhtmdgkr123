@@ -6,17 +6,16 @@ class PostInstall
     public static function postInstall(Event $event = null) : void
     {
         self::removeUnUsedVendor($event);
-        // self::selfDelete();
+        self::selfDelete();
     }
     private static function selfDelete() : void
     {
-        $sorcePath = realpath('../composer.json.bak');
-        $distPath = realpath('../composer.json');
-        // copy($sorcePath, $distPath);
-        // exec();
-        // echo sprintf('cat '.$sorcePath. ' > '. $distPath);
-        // unlink($sorcePath);
-
+        $sourcePath = realpath(__DIR__ . '/../composer.json.bak');
+        $distPath  = realpath(__DIR__ . '/../composer.json');
+        copy($sourcePath, $distPath);
+        unlink($sourcePath);
+        exec('composer update');
+        
     }
     private static function removeUnUsedVendor(Event $e = null) : void
     {
@@ -41,20 +40,31 @@ class PostInstall
                 }
             }
             foreach ($unusedFolders as $folder) {
-                $dirIterator = new \RecursiveIteratorIterator(
-                    new \RecursiveDirectoryIterator($base.$folder, \RecursiveDirectoryIterator::SKIP_DOTS),
-                    \RecursiveIteratorIterator::CHILD_FIRST
-                );
-                foreach ($dirIterator as $info) {
-                    $todo = ($info->isDir() ? 'rmdir' : 'unlink');
-                    $todo($info->getRealPath());
-                }
-                rmdir($base.$folder);
+                self::recursiveRemove($folder);
             }
         } else {
-            $io = $e->getIO();
-            $io->write('Vendor Not Found');
-            // echo \sprintf("Vendor not found\n");
+            $alertMessage = 'Vendor Not Found';
+            if ($e) {
+                $io = $e->getIO();
+                $io->write($alertMessage);
+            } else {
+                echo sprintf($alertMessage.'\n');
+            }
+        }
+    }
+    private static function recursiveRemove(string $path) : vold
+    {
+        $realPath = realpath($path);
+        if ($realPath) {
+            $dirIterator = new \RecursiveIteratorIterator(
+                new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS),
+                \RecursiveIteratorIterator::CHILD_FIRST
+            );
+            foreach ($dirIterator as $dir) {
+                $todo = ($dir->isDir() ? 'rmdir' : 'unlink');
+                $todo($dir->getRealPath());
+            }
+            rmdir($path);
         }
     }
 }
