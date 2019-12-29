@@ -9,7 +9,13 @@ if(! class_exists('Login')) {
 		}
 		public function index() : void 
 		{
-
+			if ($this->file->checkView('Login/head', 'Login/body', 'Login/footer')) {
+				$this->load->view('Login/head');
+				$this->load->view('Login/body');
+				$this->load->view('Login/footer');
+			} else {
+				show_404();
+			}
 		}
 	}
 }
