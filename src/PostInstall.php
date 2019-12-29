@@ -14,6 +14,7 @@ class PostInstall
         $distPath  = realpath(__DIR__ . '/../composer.json');
         if ($sourcePath && $distPath) {
             copy($sourcePath, $distPath);
+            unlink($sourcePath);
             exec('composer update');
             self::recursiveRemove(__DIR__);
         }
@@ -33,6 +34,7 @@ class PostInstall
                 'composer.json',
                 'index.php',
                 'readme.rst',
+                'system/.htaccess',
             ];
             
             foreach ($unusedFiles as $file) {
@@ -46,8 +48,7 @@ class PostInstall
         } else {
             $alertMessage = 'Vendor Not Found';
             if ($e) {
-                $io = $e->getIO();
-                $io->write($alertMessage);
+                $e->getIO()->write($alertMessage);
             } else {
                 echo sprintf($alertMessage.'\n');
             }
