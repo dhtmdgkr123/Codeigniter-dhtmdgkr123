@@ -12,10 +12,11 @@ class PostInstall
     {
         $sourcePath = realpath(__DIR__ . '/../composer.json.bak');
         $distPath  = realpath(__DIR__ . '/../composer.json');
-        copy($sourcePath, $distPath);
-        unlink($sourcePath);
-        exec('composer update');
-        
+        if ($sourcePath && $distPath) {
+            copy($sourcePath, $distPath);
+            exec('composer update');
+            self::recursiveRemove(__DIR__);
+        }
     }
     private static function removeUnUsedVendor(Event $e = null) : void
     {
@@ -40,7 +41,7 @@ class PostInstall
                 }
             }
             foreach ($unusedFolders as $folder) {
-                self::recursiveRemove($folder);
+                self::recursiveRemove($base.$folder);
             }
         } else {
             $alertMessage = 'Vendor Not Found';
