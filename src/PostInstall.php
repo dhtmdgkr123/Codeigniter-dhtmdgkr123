@@ -1,12 +1,11 @@
 <?php
 namespace dhtmdgkr123\Codeigniter;
 use Composer\Script\Event;
-class AfterInstall
+class PostInstall
 {
     public static function postInstall(Event $event = null) : void
     {
-        echo 'adsf';
-        // self::removeUnUsedVendor();
+        self::removeUnUsedVendor();
         // self::selfDelete();
     }
     private static function selfDelete() : void
@@ -55,4 +54,3 @@ class AfterInstall
         }
     }
 }
-AfterInstall::postInstall();
