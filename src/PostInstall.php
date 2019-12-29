@@ -5,7 +5,7 @@ class PostInstall
 {
     public static function postInstall(Event $event = null) : void
     {
-        self::removeUnUsedVendor();
+        self::removeUnUsedVendor($event);
         // self::selfDelete();
     }
     private static function selfDelete() : void
@@ -18,9 +18,9 @@ class PostInstall
         // unlink($sorcePath);
 
     }
-    private static function removeUnUsedVendor() : void
+    private static function removeUnUsedVendor(Event $e = null) : void
     {
-        $base = realpath('../vendor/codeigniter/framework');
+        $base = realpath(__DIR__ . '/../vendor/codeigniter/framework');
         if ($base) {
             $base .= '/';
             $unusedFolders = [
@@ -51,6 +51,10 @@ class PostInstall
                 }
                 rmdir($base.$folder);
             }
+        } else {
+            $io = $e->getIO();
+            $io->write('Vendor Not Found');
+            // echo \sprintf("Vendor not found\n");
         }
     }
 }
