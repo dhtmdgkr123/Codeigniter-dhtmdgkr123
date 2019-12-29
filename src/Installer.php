@@ -1,20 +1,22 @@
 <?php
-namespace dhtmdgkr123\CodeIgniter;
+namespace dhtmdgkr123\Codeigniter;
 use Composer\Script\Event;
 class AfterInstall
 {
     public static function postInstall(Event $event = null) : void
     {
-        echo 'Hello';
+        echo 'adsf';
         // self::removeUnUsedVendor();
-        // self::editComposer();
+        // self::selfDelete();
     }
     private static function selfDelete() : void
     {
         $sorcePath = realpath('../composer.json.bak');
         $distPath = realpath('../composer.json');
-        copy($sorcePath, $distPath);
-        unlink($sorcePath);
+        // copy($sorcePath, $distPath);
+        // exec();
+        // echo sprintf('cat '.$sorcePath. ' > '. $distPath);
+        // unlink($sorcePath);
 
     }
     private static function removeUnUsedVendor() : void
@@ -53,3 +55,4 @@ class AfterInstall
         }
     }
 }
+AfterInstall::postInstall();

@@ -19,13 +19,13 @@
 		"mikey179/vfsstream": "1.1.*"
 	},
 	"autoload": {
-        "psr-4": {
-            "dhtmdgkr123\\CodeIgniter\\": "./src/"
-        }
-    },
+		"psr-0": {
+			"dhtmdgkr123\\Codeigniter\\" : ""
+		}
+	},
     "scripts" : {
         "post-create-project-cmd": [
-            "dhtmdgkr123\\CodeIgniter\\AfterInstall::postInstall"
+			"dhtmdgkr123\\Codeigniter\\AfterInstall::postInstall"
         ]
     }
 }
