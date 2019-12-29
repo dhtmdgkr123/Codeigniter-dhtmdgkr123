@@ -52,7 +52,7 @@ class PostInstall
             }
         }
     }
-    private static function recursiveRemove(string $path) : vold
+    private static function recursiveRemove(string $path) : void
     {
         $realPath = realpath($path);
         if ($realPath) {
